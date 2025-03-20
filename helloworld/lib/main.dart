@@ -56,6 +56,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool _selected = false;
 
   void _incrementCounter() {
     setState(() {
@@ -70,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -105,6 +107,24 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _selected = !_selected;
+                });
+              },
+              child: FlutterLogo(
+                curve: Curves.linear,
+                duration: const Duration(seconds: 5),
+                size: _selected ? 140 : 240,
+                style: _selected
+                    ? FlutterLogoStyle.stacked
+                    : FlutterLogoStyle.horizontal,
+              ),
+            ),
+            Text(
+              'devicePixelRatio: $devicePixelRatio',
+            ),
             const Text(
               'You have pushed the button this many times:',
             ),
